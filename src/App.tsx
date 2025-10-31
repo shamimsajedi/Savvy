@@ -1,5 +1,4 @@
-import {  useMemo, useState } from "react";
-import "./App.css";
+import { useMemo, useState } from "react";
 import type { Item } from "./types";
 import ItemModal from "./components/ItemModal";
 import ItemList from "./components/ItemList";
@@ -48,10 +47,13 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <header className="header">
-        <h1 className="app-title">Items</h1>
-        <button className="btn-primary" onClick={handleCreateClick}>
+    <div className="max-w-[900px] mx-auto px-5 py-8">
+      <header className="flex items-center justify-between mb-6">
+        <h1 className="m-0 text-3xl">Items</h1>
+        <button
+          className="bg-blue-600 text-white border-none rounded-lg px-4 py-2.5 hover:bg-blue-700 transition-colors"
+          onClick={handleCreateClick}
+        >
           Create
         </button>
       </header>
