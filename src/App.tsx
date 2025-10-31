@@ -1,14 +1,18 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Item } from "./types";
 import ItemModal from "./components/ItemModal";
 import ItemList from "./components/ItemList";
 
 function App() {
-  const [items, setItems] = useState<Item[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+const [items, setItems] = useState<Item[]>(() => {
+  const saved = localStorage.getItem("items");
+  return saved ? JSON.parse(saved) : [];
+});  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingItem, setEditingItem] = useState<Item | null>(null);
-
   const isEditing = useMemo(() => Boolean(editingItem), [editingItem]);
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   const handleCreateClick = () => {
     setEditingItem(null);
@@ -45,8 +49,8 @@ function App() {
     setIsModalOpen(false);
     setEditingItem(null);
   };
-
   return (
+    
     <div className="max-w-[900px] mx-auto px-5 py-8">
       <header className="flex items-center justify-between mb-6">
         <h1 className="m-0 text-3xl">Items</h1>
@@ -58,7 +62,11 @@ function App() {
         </button>
       </header>
 
-      <ItemList items={items} onEdit={handleEdit} onDelete={handleDelete} />
+      <ItemList
+        items={items}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
 
       <ItemModal
         isOpen={isModalOpen}

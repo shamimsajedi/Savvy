@@ -1,4 +1,4 @@
-import type { Item } from '../types';
+import type { Item } from "../types";
 
 type ItemListProps = {
   items: Item[];
@@ -6,7 +6,11 @@ type ItemListProps = {
   onDelete: (id: string) => void;
 };
 
-export default function ItemList({ items, onEdit, onDelete }: ItemListProps) {
+export default function ItemList({
+  items = [],
+  onEdit,
+  onDelete,
+}: ItemListProps) {
   if (items.length === 0) {
     return (
       <div className="opacity-70 py-8 text-center">
@@ -50,5 +54,3 @@ export default function ItemList({ items, onEdit, onDelete }: ItemListProps) {
     </ul>
   );
 }
-
-
